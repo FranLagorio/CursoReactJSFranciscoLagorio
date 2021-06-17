@@ -1,27 +1,16 @@
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.css";
-import { ItemListContainer } from "./container/HomeContainer";
-import { NavBar } from "./components/NavBar";
 
-
+import { HomeContainer } from "./container/HomeContainer";
 
 function App() {
     return (
         <div className="App">
             <body>
-
-                <header>
-                    < NavBar />
-                </header>
-
-                <main >
-
-                    < ItemListContainer greeting={ {saludo: 'BIENVENIDOS A POSTAL DE MATES' }} />
-
-                </main>
-
+             < HomeContainer greeting={ {id: 1, saludo: 'BIENVENIDOS A POSTAL DE MATES',  }} />
             </body>   
         </div>
     );
 }
+
 export default App;
