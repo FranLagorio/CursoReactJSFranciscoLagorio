@@ -1,26 +1,35 @@
-import { CardComponent } from "../../components/CardComponent";
-import { NavBar } from "../../components/NavBar";
-import { useEffect } from "react";
+// import { CardComponent } from "../../components/CardComponent";
+import { ItemList } from "../../components/ItemList";
+import { useEffect, useState } from "react";
 
 import "./estilosHomeContainer.scss";
 
-export const HomeContainer = (props) => {
+export const ItemListContainer = (props) => {
 
-    useEffect ( () => {
-        console.log("Se crea una card")
-        return () => {
-            console.log("Se modifica estado")
-        }
-    })
+    const [products, setProducts] = useState([])
+
+    useEffect ( async () => {
+            const response = await fetch ("./json/mates.json")
+            const data = await response.json()
+            setProducts(data)
+            console.log(products)
+        }  
+       
+    , [])
 
     return (
         <>
-          
-            <header>
-                <NavBar  />
-            </header>
+        <div>
+            < ItemList products={products}/>
+        </div>
+        </>
+    );
+};
 
-            <section>
+//  < CardComponent ruta="/images/mateImperial.jpg" />
+
+
+{/* <section>
                 <h1>{props.greeting.saludo}</h1>
 
                 <div className=" container-fluid flex-row flex-wrap">
@@ -42,13 +51,6 @@ export const HomeContainer = (props) => {
                         price={4600}
                         stock={3}
                     />
-                    <CardComponent />
-                    <CardComponent />
-                    <CardComponent />
+                    
                 </div>
-            </section>
-        </>
-    );
-};
-
-//  < CardComponent ruta="/images/mateImperial.jpg" />
+            </section> */}

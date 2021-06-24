@@ -1,16 +1,12 @@
 import "./styles.scss";
 import { ItemCount } from "../ItemCount";
 
-export const CardComponent = ({
-    ruta = "./images/mateDefault.png",
-    title = "Ups! No debe quedar mas stock",
-    price = "",
-    stock = "A consultar",
-}) => {
+export const CardComponent = ({product}) => {
+
     // Consulta si hay stock para no poner un 0
-    if (stock === "A consultar") {
+    if (product.stock === "A consultar") {
     } else {
-        stock = parseInt(stock);
+        product.stock = parseInt(product.stock);
     }
 
     const onAdd =(x) => {
@@ -20,15 +16,15 @@ export const CardComponent = ({
     return (
         <>
             <div className="card col-sm-12 col-md-3 m-1 ">
-                <img className="card-img-top" src={ruta} alt="imagenMate" />
+                <img className="card-img-top" src={product.pictureURL} alt="imagenMate" />
                 <div className="card-body w-100">
-                    <h5 className="card-title"> {title}</h5>
+                    <h5 className="card-title"> {product.title}</h5>
 
-                    {price !== "" && <p className="card-text"> ${price} </p>}
+                    {product.price !== "" && <p className="card-text"> ${product.price} </p>}
 
-                    <p className="card-text"> Stock: {stock} </p>
+                    <p className="card-text"> Stock: {product.stock} </p>
 
-                    <ItemCount stock={stock} initial={1} onAdd={onAdd} />
+                    <ItemCount stock={product.stock} initial={1} onAdd={onAdd} />
 
                     
                 </div>

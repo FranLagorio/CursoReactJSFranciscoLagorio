@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "title": "Mate Imperial Clasico",
+        "description": "Es un mate",
+        "price": 4900,
+        "pictureURL": "./images/mateImperial.jpg",
+        "stock": 2
+    },
+
+    {
+        "id": 2,
+        "title": "Mate Torpedo",
+        "description": "Es un mate 2",
+        "price": 2450,
+        "pictureURL": "./images/mateTorpedo.jpg",
+        "stock": 5
+    },
+
+    {
+        "id": 3,
+        "title": "Mate Imperial 2",
+        "description": "Es un mate 3",
+        "price": 4600,
+        "pictureURL": "./images/mateimperial2.jpg",
+        "stock": 1
+    },
+
+    {
+        "id": 4,
+        "title": "Ups",
+        "description": "Ups",
+        "price": "$$",
+        "pictureURL": "./images/mateDefault.png",
+        "stock": "A consultar"
+    }
+
+]
