@@ -13,8 +13,8 @@ export const NavBar = ( {contador} ) => {
     
     return (
         
-        <div className="navBar flex-column flex-md-row justify-content-between align-items-center" >
-            <div className="pLogo  flex-row align-items-center">
+        <div className="navBar d-flex flex-column flex-md-row justify-content-between align-items-center" >
+            <div className="pLogo d-flex flex-row align-items-center">
                 {/* Esto para que ande tiene que estar la carpeta images en public */}
                 {/* <img src="images/logoPostal.png" className="logo" alt="seo" /> */}
                 {/* OTRA FORMA COMO COMPONENTE */}

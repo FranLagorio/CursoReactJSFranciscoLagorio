@@ -54,7 +54,10 @@
     p {
         color: black;
     }
-    main {
+    body {
         @include flex(flex, column, center, center);
     }
+
+   
 }
+

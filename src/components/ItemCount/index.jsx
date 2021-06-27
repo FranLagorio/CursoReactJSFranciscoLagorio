@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { onSub } from "../../utils/const";
+
 
 export const ItemCount = ({ stock, initial, onAdd }) => {
     
@@ -29,7 +29,7 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
 
     return (
         <>
-            <div className="flex-row justify-content-center align-content-center w-50 ">
+            <div className="d-flex flex-row justify-content-center align-content-center w-75 m-auto ">
                 <button
                     className="btn btn-primary"
                     onClick={() => {
@@ -39,7 +39,7 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
                     +
                 </button>
 
-                <div className="px-1 text-center align-content-center flex-grow-1">
+                <div className="px-1 d-flex flex-row justify-content-center align-items-center w-25 ">
                     {stock === "A consultar" && "No hay stock"}
                     {stock !== "A consultar" && contador}
                 </div>
@@ -55,7 +55,8 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
                     -
                 </button>
             </div>
-            <button className="btn btn-dark mt-1 w-100" type="submit" onClick={ () => {onAdd(contador)}}> Agregar al Carrito </button>
+
+            <button className="btn btn-dark mt-1 w-50" type="submit" onClick={ () => {onAdd(contador)}}> Agregar al Carrito </button>
         </>
     );
 };

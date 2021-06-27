@@ -2,8 +2,6 @@
 import { ItemList } from "../../components/ItemList";
 import { useEffect, useState } from "react";
 
-import "./estilosHomeContainer.scss";
-
 export const ItemListContainer = (props) => {
 
     const [products, setProducts] = useState([])
@@ -21,6 +19,7 @@ export const ItemListContainer = (props) => {
         <>
         <div>
             < ItemList products={products}/>
+           
         </div>
         </>
     );

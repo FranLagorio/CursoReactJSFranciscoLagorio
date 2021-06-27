@@ -1,5 +1,6 @@
 import "./styles.scss";
 import { ItemCount } from "../ItemCount";
+import {onAdd} from "../../utils/const"
 
 export const CardComponent = ({product}) => {
 
@@ -9,14 +10,15 @@ export const CardComponent = ({product}) => {
         product.stock = parseInt(product.stock);
     }
 
-    const onAdd =(x) => {
-        alert(`Has agregado ${x} productos al carrito`)
-    }
+    // const onAdd =(x) => {
+    //     alert(`Has agregado ${x} productos al carrito`)
+    // }
 
     return (
         <>
-            <div className="card col-sm-12 col-md-3 m-1 ">
+            <div className="card col-sm-12 col-md-3 m-2 ">
                 <img className="card-img-top" src={product.pictureURL} alt="imagenMate" />
+                
                 <div className="card-body w-100">
                     <h5 className="card-title"> {product.title}</h5>
 
@@ -25,8 +27,6 @@ export const CardComponent = ({product}) => {
                     <p className="card-text"> Stock: {product.stock} </p>
 
                     <ItemCount stock={product.stock} initial={1} onAdd={onAdd} />
-
-                    
                 </div>
             </div>
         </>
