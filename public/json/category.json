@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "category": "Imperiales"
+  },
+  {
+    "id": 2,
+    "category": "Torpedos"
+  },
+  {
+    "id": 3,
+    "category": "Camioneros"
+  },
+  {
+    "id": 4,
+    "category": "Accesorios"
+  }
+]

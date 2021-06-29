@@ -1,24 +1,39 @@
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.css";
-import { NavBar } from "./components/NavBar";
+import { NavBarContainer } from "./components/NavBarContainer";
 import { ItemListContainer } from "./container/ItemListContainer";
+import { Footer } from "./components/Footer";
+
 import { ItemDetailContainer } from "./container/ItemDetailContainer";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
+
+  const [cart, setCart] = useState([])
+
   return (
-    <div className="App">
-      <body>
+    <>
+      <Router>
         <header>
-          <NavBar />
+          <NavBarContainer cart={cart} />
         </header>
 
-          {/* <ItemListContainer
-            greeting={{ id: 1, saludo: "BIENVENIDOS A POSTAL DE MATES" }}
-          /> */}
+        <Switch>
+          <Route exact path="/"> <ItemListContainer greeting={{ saludo: "BIENVENIDOS A POSTAL DE MATES" }} />
+          </Route>
 
-        < ItemDetailContainer />
-      </body>
-    </div>
+          <Route exact path="/category/:category"><ItemListContainer greeting={{ saludo: "Listado por Categoria - " }} /></Route>
+
+          <Route path="/item/:id"> <ItemDetailContainer greeting={{ saludo: "Detalle de Producto - " }} /></Route>
+
+        </Switch>
+
+        <footer>
+          <Footer />
+        </footer>
+      </Router>
+    </>
   );
 }
 
