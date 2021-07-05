@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { ItemCount } from "../ItemCount";
-import { onAdd } from "../../utils/const";
 
 import "./styles.scss";
 
@@ -8,6 +8,13 @@ export const ItemDetailComponent = ({ product }) => {
     // Prueba de desestructuracion de objeto
     // {product.prueba = "hola"}
     // prueba
+    const [finalState, setFinalState] = useState(null)
+
+    const onAdd = (x) => {
+        // alert(`Has agregado ${x} productos al carrito`);
+        setFinalState(true)
+    };
+
 
     return (
         <>
@@ -25,7 +32,7 @@ export const ItemDetailComponent = ({ product }) => {
                         <p className="card-text text-center"> Descripcion: {product.description} </p>
                         {/* <p className="card-text"> Descripcion: {product.prueba} </p> */}
 
-                        <ItemCount stock={product.stock} initial={1} onAdd={onAdd} />
+                        {finalState === null ? <ItemCount stock={product.stock} initial={1} onAdd={onAdd} /> : <Link to={"/checkout"}> <button className="btn btn-dark mt-1 w-100" type="submit" > Terminar Compra </button> </Link>}
                     </div>
                 </div>
             </div>

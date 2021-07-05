@@ -7,6 +7,7 @@ import { Footer } from "./components/Footer";
 import { ItemDetailContainer } from "./container/ItemDetailContainer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState } from "react";
+import { CheckoutContainer } from "./container/CheckoutContainer";
 
 function App() {
 
@@ -26,6 +27,8 @@ function App() {
           <Route exact path="/category/:category"><ItemListContainer greeting={{ saludo: "Listado por Categoria - " }} /></Route>
 
           <Route path="/item/:id"> <ItemDetailContainer greeting={{ saludo: "Detalle de Producto - " }} /></Route>
+
+          <Route path="/checkout"> <CheckoutContainer /> </Route>
 
         </Switch>
 
