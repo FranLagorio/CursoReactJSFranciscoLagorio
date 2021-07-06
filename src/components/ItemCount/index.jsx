@@ -1,8 +1,7 @@
+import { useContext } from "react";
 import { useState } from "react";
-
-
 export const ItemCount = ({ stock, initial, onAdd }) => {
-
+    const [contador, setContador] = useState(initial);
     function agregar(contador, stock) {
         if (stock === "A consultar") {
             console.log("No hay stock");
@@ -12,7 +11,6 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
             console.log(`Maximo disponible ${stock}`);
             return (contador = stock);
         }
-
     }
 
     function restar(contador, stock) {
@@ -25,11 +23,9 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
         }
     }
 
-    const [contador, setContador] = useState(initial);
-
     return (
         <>
-            {stock !== "N/D" ?
+            {stock !== "N/D" ? (
                 <>
                     <div className="d-flex flex-row justify-content-center align-content-center w-75 m-auto ">
                         <button
@@ -57,11 +53,18 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
                     </div>
 
                     <div className="d-flex flex-row justify-content-center align-content-center w-100">
-                        <button className="btn btn-dark mt-1 w-100" type="submit" onClick={() => { onAdd(contador) }}>
-                            Agregar al Carrito </button>
+                        <button
+                            className="btn btn-dark mt-1 w-100"
+                            type="submit"
+                            onClick={() => onAdd(contador)}
+                        >
+                            Agregar al Carrito
+                        </button>
                     </div>
                 </>
-                : ""}
+            ) : (
+                ""
+            )}
         </>
     );
 };

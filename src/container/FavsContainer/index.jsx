@@ -1,57 +1,51 @@
 import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ShopContext } from "../../context/ShopContext";
 
-import "./styles.scss";
-
-export const CheckoutContainer = () => {
-    const { cart, setCart, clearCart, removeItem } = useContext(ShopContext);
+export const FavsContainer = () => {
+    const { fav, removeItemFav } = useContext(ShopContext);
 
     return (
         <>
-            {cart.map((product) => {
+            {fav.map((element) => {
                 return (
                     <div className="container d-flex flex-column flex-md-row  justify-content-center align-items-center my-2">
                         <div className="col-8 col-md-2 p-0">
-                            <img src={product.item.pictureURL} alt="" />
+                            <img src={element.pictureURL} alt="" />
                         </div>
 
                         <div className="d-flex flex-row justify-content-center justify-content-md-start align-items-center  col-8 col-md-2 py-2 ">
-                            <div className="text-center">Producto: {product.item.title}</div>
+                            <div className="text-center">Producto: {element.title}</div>
                         </div>
 
                         <div className="d-flex flex-row justify-content-center justify-content-md-start align-items-center  col-8 col-md-2 py-2 ">
-                            <div>Precio: ${product.item.price}</div>
+                            <div>Precio: ${element.price}</div>
                         </div>
 
                         <div className="  col-8 col-md-2 d-flex flex-row justify-content-center">
-                            <div className="col-6 col-md-4 d-flex flex-row justify-content-around align-items-center py-2 ">
-                                <button className="btn btn-success d-flex align-items-center h-10">
-                                    +
-                                </button>
-                                <div className="d-flex align-items-center">{product.cantidad}</div>
-                                <button className="btn btn-danger d-flex align-items-center h-10">
-                                    -
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="  col-8 col-md-2 d-flex flex-row justify-content-center">
-                            <div className=" col-auto d-flex align-items-center">
+                            <div className="col-autos d-flex align-items-center">
                                 <button
                                     className="btn btn-danger d-flex align-items-center h-10 m-1"
                                     onClick={() => {
                                         console.log("eliminado");
-                                        removeItem(product);
+                                        removeItemFav(element);
                                     }}
                                 >
                                     Eliminar
                                 </button>
+
+                                <Link to={`/item/${element.id}`}>
+                                    <>
+                                        <button className="btn btn-dark mt-1 w-100" type="submit">
+                                            Ver Producto
+                                        </button>
+                                    </>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 );
             })}
-            <button onClick={() => clearCart()}> LIMPIAR CARRITO </button>
         </>
     );
 };

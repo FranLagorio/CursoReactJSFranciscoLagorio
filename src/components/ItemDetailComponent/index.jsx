@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
 import { ItemCount } from "../ItemCount";
+import { ShopContext } from "../../context/ShopContext";
 
 import "./styles.scss";
 
@@ -8,13 +8,9 @@ export const ItemDetailComponent = ({ product }) => {
     // Prueba de desestructuracion de objeto
     // {product.prueba = "hola"}
     // prueba
-    const [finalState, setFinalState] = useState(null)
+    const { addToCart } = useContext(ShopContext);
 
-    const onAdd = (x) => {
-        // alert(`Has agregado ${x} productos al carrito`);
-        setFinalState(true)
-    };
-
+    const onAdd = (cantidad) => addToCart(product, cantidad);
 
     return (
         <>
@@ -25,14 +21,19 @@ export const ItemDetailComponent = ({ product }) => {
                     <div className="card-body w-100 m-auto ">
                         <h5 className="card-title text-center   "> {product.title}</h5>
 
-                        {product.price !== "" && <p className="card-text text-center"> ${product.price} </p>}
+                        {product.price !== "" && (
+                            <p className="card-text text-center"> ${product.price} </p>
+                        )}
 
                         <p className="card-text text-center"> Stock: {product.stock} </p>
 
-                        <p className="card-text text-center"> Descripcion: {product.description} </p>
+                        <p className="card-text text-center">
+                            {" "}
+                            Descripcion: {product.description}{" "}
+                        </p>
                         {/* <p className="card-text"> Descripcion: {product.prueba} </p> */}
 
-                        {finalState === null ? <ItemCount stock={product.stock} initial={1} onAdd={onAdd} /> : <Link to={"/checkout"}> <button className="btn btn-dark mt-1 w-100" type="submit" > Terminar Compra </button> </Link>}
+                        <ItemCount stock={product.stock} initial={1} onAdd={onAdd}></ItemCount>
                     </div>
                 </div>
             </div>

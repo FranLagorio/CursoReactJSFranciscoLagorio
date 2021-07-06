@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import { ItemDetailComponent } from "../../components/ItemDetailComponent";
 import { Spinner } from "react-bootstrap"
 
-export const ItemDetailContainer = ({ greeting }) => {
-  const { id } = useParams();
 
+export const ItemDetailContainer = ({ greeting }) => {
+
+
+  const { id } = useParams();
   const [item, setItem] = useState({});
 
   useEffect(async () => {

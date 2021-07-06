@@ -8,36 +8,51 @@ import { ItemDetailContainer } from "./container/ItemDetailContainer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState } from "react";
 import { CheckoutContainer } from "./container/CheckoutContainer";
+import { ShopComponentContext, ShopContext } from "./context/ShopContext";
+import { FavsContainer } from "./container/FavsContainer";
 
 function App() {
+    return (
+        <>
+            <ShopComponentContext>
+                <Router>
+                    <header>
+                        <NavBarContainer />
+                    </header>
 
-  const [cart, setCart] = useState([])
+                    <Switch>
+                        <Route exact path="/">
+                            {" "}
+                            <ItemListContainer
+                                greeting={{ saludo: "BIENVENIDOS A POSTAL DE MATES" }}
+                            />
+                        </Route>
 
-  return (
-    <>
-      <Router>
-        <header>
-          <NavBarContainer cart={cart} />
-        </header>
+                        <Route exact path="/category/:category">
+                            <ItemListContainer greeting={{ saludo: "Listado por Categoria - " }} />
+                        </Route>
 
-        <Switch>
-          <Route exact path="/"> <ItemListContainer greeting={{ saludo: "BIENVENIDOS A POSTAL DE MATES" }} />
-          </Route>
+                        <Route path="/item/:id">
+                            {" "}
+                            <ItemDetailContainer greeting={{ saludo: "Detalle de Producto - " }} />
+                        </Route>
 
-          <Route exact path="/category/:category"><ItemListContainer greeting={{ saludo: "Listado por Categoria - " }} /></Route>
+                        <Route path="/checkout">
+                            <CheckoutContainer />
+                        </Route>
 
-          <Route path="/item/:id"> <ItemDetailContainer greeting={{ saludo: "Detalle de Producto - " }} /></Route>
+                        <Route path="/favorites">
+                            <FavsContainer />
+                        </Route>
+                    </Switch>
 
-          <Route path="/checkout"> <CheckoutContainer /> </Route>
-
-        </Switch>
-
-        <footer>
-          <Footer />
-        </footer>
-      </Router>
-    </>
-  );
+                    <footer>
+                        <Footer />
+                    </footer>
+                </Router>
+            </ShopComponentContext>
+        </>
+    );
 }
 
 export default App;
