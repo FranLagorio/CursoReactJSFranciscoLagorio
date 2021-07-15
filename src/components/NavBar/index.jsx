@@ -1,15 +1,17 @@
 import "./styles.scss";
 import LogoPostal from "../../images/logoPostal.png";
 import LogoMate from "../../images/mate.svg";
-import { CartWidget } from "../CartWidget";
-import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { ShopContext } from "../../context/ShopContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-export const NavBarContainer = () => {
-    const { cart } = useContext(ShopContext);
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { ShopContext } from "../../context/ShopContext";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
+export const NavBar = () => {
+    const { cart, itemsTotal } = useContext(ShopContext);
 
     // useEffect(() => {}, [cart]);
 
@@ -57,14 +59,19 @@ export const NavBarContainer = () => {
                         </Link>
                     </li>
 
-                    <li className="d-inline-flex">
-                        <Link to={"/Checkout"} className="contador">
-                            <CartWidget /> {cart.length}{" "}
-                        </Link>
-                    </li>
+                    {itemsTotal === 0 ? (
+                        ""
+                    ) : (
+                        <li className="d-inline-flex">
+                            <Link to={"/Checkout"} className="text-decoration-none text-black-50">
+                                <FontAwesomeIcon icon={faShoppingCart} />
+                                {itemsTotal === 0 ? "" : itemsTotal}
+                            </Link>
+                        </li>
+                    )}
 
                     <li>
-                        <Link to={"/favorites"}>
+                        <Link to={"/favorites"} className="text-decoration-none text-black-50">
                             <FontAwesomeIcon icon={faHeart} size="1x" />
                         </Link>
                     </li>

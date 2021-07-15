@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap");
+
+* {
+    font-family: "Open Sans Condensed", sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+}
+
+.logoMate {
+    width: 20px;
+    height: auto;
+    position: relative;
+    bottom: 5px;
+    right: 1px;
+}
+
+.navBar {
+    padding: 10px 0px;
+    height: auto;
+    width: 100vw;
+
+    background-color: rgb(221, 189, 150);
+
+    color: white;
+    position: sticky;
+    top: 0px;
+    z-index: 4;
+
+    p {
+        color: black;
+        text-align: center;
+        align-items: center;
+
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .pLogo {
+        p {
+            font-size: 30px;
+            position: relative;
+            left: 10px;
+            // letter-spacing: 2px;
+        }
+    }
+
+    .navBar__li {
+        ul {
+            margin: 0;
+            padding: 0px 20px;
+        }
+        li {
+            color: black;
+            display: inline-block;
+            list-style: none;
+            padding: 0px 10px;
+        }
+    }
+}
+
+Link {
+    text-decoration: none;
+    color: black;
+    :hover {
+        text-decoration: none;
+    }
+}

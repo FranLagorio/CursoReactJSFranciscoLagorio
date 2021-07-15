@@ -1,14 +1,13 @@
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.css";
-import { NavBarContainer } from "./components/NavBarContainer";
-import { ItemListContainer } from "./container/ItemListContainer";
-import { Footer } from "./components/Footer";
-
-import { ItemDetailContainer } from "./container/ItemDetailContainer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useState } from "react";
+
+import { NavBar } from "./components/NavBar";
+import { ItemListContainer } from "./container/ItemListContainer";
+import { ItemDetailContainer } from "./container/ItemDetailContainer";
+
 import { CheckoutContainer } from "./container/CheckoutContainer";
-import { ShopComponentContext, ShopContext } from "./context/ShopContext";
+import { ShopComponentContext } from "./context/ShopContext";
 import { FavsContainer } from "./container/FavsContainer";
 
 function App() {
@@ -16,13 +15,12 @@ function App() {
         <>
             <ShopComponentContext>
                 <Router>
-                    <header>
-                        <NavBarContainer />
+                    <header style={{ zIndex: 2 }}>
+                        <NavBar />
                     </header>
 
                     <Switch>
                         <Route exact path="/">
-                            {" "}
                             <ItemListContainer
                                 greeting={{ saludo: "BIENVENIDOS A POSTAL DE MATES" }}
                             />
@@ -33,7 +31,6 @@ function App() {
                         </Route>
 
                         <Route path="/item/:id">
-                            {" "}
                             <ItemDetailContainer greeting={{ saludo: "Detalle de Producto - " }} />
                         </Route>
 
@@ -46,9 +43,9 @@ function App() {
                         </Route>
                     </Switch>
 
-                    <footer>
+                    {/* <footer>
                         <Footer />
-                    </footer>
+                    </footer> */}
                 </Router>
             </ShopComponentContext>
         </>

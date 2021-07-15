@@ -27,7 +27,7 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
         <>
             {stock !== "N/D" ? (
                 <>
-                    <div className="d-flex flex-row justify-content-center align-content-center w-75 m-auto ">
+                    <div className="d-flex flex-row justify-content-center align-content-center w-75  ">
                         <button
                             className="btn btn-primary"
                             onClick={() => {
@@ -54,9 +54,11 @@ export const ItemCount = ({ stock, initial, onAdd }) => {
 
                     <div className="d-flex flex-row justify-content-center align-content-center w-100">
                         <button
-                            className="btn btn-dark mt-1 w-100"
+                            className="btn btn-dark  w-100 mt-1"
                             type="submit"
-                            onClick={() => onAdd(contador)}
+                            onClick={() => {
+                                onAdd(contador);
+                            }}
                         >
                             Agregar al Carrito
                         </button>

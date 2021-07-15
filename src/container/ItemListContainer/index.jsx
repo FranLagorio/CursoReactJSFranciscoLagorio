@@ -7,36 +7,23 @@ import { ShopContext } from "../../context/ShopContext";
 import { getFirestore } from "../../firebase/client";
 
 export const ItemListContainer = (props) => {
+    const { listProducts } = useContext(ShopContext);
     const { category } = useParams();
-
     const [loaded, setLoaded] = useState(false);
-    const [products, setProducts] = useState([]);
-
     const [filterProducts, setFilterProducts] = useState([]);
-
-    useEffect(async () => {
+    useEffect(() => {
         setLoaded(false);
 
-        const getItems = async () => {
-            let filtrados;
-
-            if (products.length === 0) {
-                const responseMates = await fetch("/json/mates.json");
-                const dataMates = await responseMates.json();
-                filtrados = dataMates;
-                setProducts(dataMates);
-            } else {
-                filtrados = category
-                    ? products.filter((element) => element.category === category)
-                    : products;
-            }
-
-            setFilterProducts(filtrados);
+        if (category) {
+            let aux = listProducts.filter((element) => element.category === category);
+            console.log(aux);
+            setFilterProducts(aux);
             setLoaded(true);
-        };
-
-        getItems();
-    }, [products, category]);
+        } else {
+            setLoaded(true);
+            setFilterProducts(listProducts);
+        }
+    }, [listProducts, category]);
 
     return (
         <>

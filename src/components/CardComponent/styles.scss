@@ -1,8 +1,64 @@
+.imagenCard {
+    transition: 2s;
+    overflow: hidden;
+}
+
+.card {
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.card-hover {
+    transition: 0.5s;
+}
+
+.card-hover:hover {
+    transform: scale(1.01) translateY(-0.5em);
+
+    .btn-fav-derecha {
+        // transform: scale(2);
+        animation-name: botonFav;
+        animation-duration: 1s;
+        animation-iteration-count: 10;
+        animation-timing-function: linear;
+    }
+}
+
 .card-img-top {
     width: 100%;
     display: block;
     margin: 0 auto 0 auto;
+    transition: 5s linear;
 }
+
+.card-img-top:hover {
+    transform: scale(1.4) rotate(5deg);
+}
+
+.btn-fav-derecha {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+
+    color: papayawhip;
+    background: none;
+    border: none;
+    transition: 1s;
+    z-index: 1;
+}
+
+@keyframes botonFav {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+    }
+}
+
 .texto22px {
     font-size: 22px;
 }
@@ -16,4 +72,13 @@
 }
 .texto16px {
     font-size: 18px;
+}
+
+.h-20 {
+    height: 20%;
+}
+
+.caja-al-final {
+    position: relative;
+    bottom: 0;
 }

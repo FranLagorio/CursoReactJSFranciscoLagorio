@@ -2,10 +2,19 @@ import { useEffect, useState, createContext } from "react";
 import { getFirestore } from "../firebase/client";
 
 export const ShopContext = createContext({});
+// export const useCartContext = () => useContext(ShopContext)
 
 export const ShopComponentContext = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [fav, setFav] = useState([]);
+    const [itemsTotal, setItemsTotal] = useState(0);
+
+    const getTotal = () => {
+        let aux = cart.reduce((acc, item) => {
+            return (acc = acc + item.item.price * item.cantidad);
+        }, 0);
+        return aux;
+    };
 
     const [listProducts, setListProducts] = useState([]);
 
@@ -58,10 +67,13 @@ export const ShopComponentContext = ({ children }) => {
 
     function addToFav(product) {
         if (isInFav(product.id)) {
-            console.log("ya hay uno");
+            //intentar agregar una notificacion!
+
+            console.log("Ya se encuentra cargado a favs");
         } else setFav([...fav, product]);
     }
 
+    //USEFFECTs
     useEffect(() => {
         async function getDataFromJson() {
             const RESPONSE = await fetch("/json/mates.json");
@@ -82,11 +94,12 @@ export const ShopComponentContext = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
         localStorage.setItem("fav", JSON.stringify(fav));
-    }, [cart, fav]);
 
-    // useEffect(() => {
-    //     localStorage.setItem("fav", JSON.stringify(fav));
-    // }, [fav]);
+        let aux = cart.reduce((acc, element) => {
+            return (acc = acc += element.cantidad);
+        }, 0);
+        setItemsTotal(aux);
+    }, [cart, fav]);
 
     // useEffect(() => {
     //     async function getData() {
@@ -117,14 +130,19 @@ export const ShopComponentContext = ({ children }) => {
         <ShopContext.Provider
             value={{
                 cart,
+                fav,
                 listProducts,
+
                 addToCart,
                 clearCart,
                 removeItem,
-                fav,
+
                 addToFav,
                 clearFav,
                 removeItemFav,
+
+                getTotal,
+                itemsTotal,
             }}
         >
             {children}
