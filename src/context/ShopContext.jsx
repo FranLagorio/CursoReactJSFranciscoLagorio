@@ -5,6 +5,7 @@ export const ShopContext = createContext({});
 // export const useCartContext = () => useContext(ShopContext)
 
 export const ShopComponentContext = ({ children }) => {
+    const [listProducts, setListProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [fav, setFav] = useState([]);
     const [itemsTotal, setItemsTotal] = useState(0);
@@ -16,24 +17,28 @@ export const ShopComponentContext = ({ children }) => {
         return aux;
     };
 
-    const [listProducts, setListProducts] = useState([]);
-
     //Funcion de añadir a carrito
-
     //Verifica si ya existe !
     const isInCart = (id) => cart.find((element) => element.item.id === id);
     const isInFav = (id) => fav.find((element) => element.id === id);
 
-    const clearCart = () => {
-        setCart([]);
-        localStorage.removeItem(cart);
-    };
-
-    const clearFav = () => {
-        setFav([]);
-        localStorage.remoItem(fav);
-    };
-
+    function addToCart(item, cantidad) {
+        if (isInCart(item.id)) {
+            const newCart = cart.map((element) => {
+                if (element.item.id === item.id) {
+                    if (element.item.stock >= element.cantidad + cantidad) {
+                        return { ...element, cantidad: element.cantidad + cantidad };
+                    } else {
+                        alert(
+                            `Ya has agregado el maximo stock disponible (${element.item.stock} unidades)`
+                        );
+                        return { ...element, cantidad: element.item.stock };
+                    }
+                } else return element;
+            });
+            setCart(newCart);
+        } else setCart([...cart, { item, cantidad }]);
+    }
     const removeItem = (product) => {
         let newCart = [];
         cart.map((element) => {
@@ -43,6 +48,18 @@ export const ShopComponentContext = ({ children }) => {
         });
         setCart(newCart);
     };
+
+    const clearCart = () => {
+        setCart([]);
+        localStorage.removeItem(cart);
+    };
+    function addToFav(product) {
+        if (isInFav(product.id)) {
+            //intentar agregar una notificacion!
+
+            console.log("Ya se encuentra cargado a favs");
+        } else setFav([...fav, product]);
+    }
 
     const removeItemFav = (product) => {
         let aux = [];
@@ -54,34 +71,65 @@ export const ShopComponentContext = ({ children }) => {
         setFav(aux);
     };
 
-    function addToCart(item, cantidad) {
-        if (isInCart(item.id)) {
-            const newCart = cart.map((element) => {
-                if (element.item.id === item.id) {
-                    return { ...element, cantidad: element.cantidad + cantidad };
+    const clearFav = () => {
+        setFav([]);
+        localStorage.remoItem(fav);
+    };
+
+    const addOne = (productCart, cantidad) => {
+        let newCart = cart.map((element) => {
+            if (element.item.id === productCart.id) {
+                if (element.item.stock > cantidad) {
+                    return { ...element, cantidad: element.cantidad + 1 };
+                } else {
+                    alert(`Solo hay disponible ${element.item.stock} unidades`);
+                    return element;
+                }
+            } else return element;
+        });
+        setCart(newCart);
+    };
+
+    const substractOne = (productCart, cantidad) => {
+        let newCart = cart.map((element) => {
+            if (element.item.id === productCart.id) {
+                if (cantidad > 0) {
+                    return { ...element, cantidad: element.cantidad - 1 };
                 } else return element;
-            });
-            setCart(newCart);
-        } else setCart([...cart, { item, cantidad }]);
-    }
+            } else return element;
+        });
+        setCart(newCart);
+    };
 
-    function addToFav(product) {
-        if (isInFav(product.id)) {
-            //intentar agregar una notificacion!
-
-            console.log("Ya se encuentra cargado a favs");
-        } else setFav([...fav, product]);
-    }
-
-    //USEFFECTs
     useEffect(() => {
-        async function getDataFromJson() {
-            const RESPONSE = await fetch("/json/mates.json");
-            const DATA = await RESPONSE.json();
-            setListProducts(DATA);
-        }
-        getDataFromJson();
+        async function getData() {
+            const DB = getFirestore();
+            const COLLECTION = DB.collection("productos");
+            const RESPONSE = await COLLECTION.get();
 
+            let aux = RESPONSE.docs.map((element) => {
+                return { id: element.id, ...element.data() };
+            });
+
+            setListProducts(aux);
+
+            // setListProducts(RESPONSE.docs.map((doc) => doc.data()));
+            // console.log(RESPONSE.docs.map((element) => element.data()));
+
+            //POR 1 ITEM
+            // const RESPONSE = await COLLECTION.doc("3wHw0RWkcrtKFYbGgzli").get();
+            // console.log(RESPONSE.data());
+
+            //FILTROS
+            // const RESPONSE = await COLLECTION.where("stock", "!=", 0).get();
+            // console.log(RESPONSE.docs.map((element) => element.data()));
+
+            //ALMACENAR EL ID
+            // RESPONSE.docs.map((element) => {
+            //     console.log({ idd: element.id, ...element.data() });
+            // });
+        }
+        getData();
         const localCart = localStorage.getItem("cart");
         if (!localCart) localStorage.setItem("cart", JSON.stringify([]));
         else setCart(JSON.parse(localCart));
@@ -101,31 +149,6 @@ export const ShopComponentContext = ({ children }) => {
         setItemsTotal(aux);
     }, [cart, fav]);
 
-    // useEffect(() => {
-    //     async function getData() {
-    //         const DB = getFirestore();
-    //         const COLLECTION = DB.collection("productos");
-    //         const RESPONSE = await COLLECTION.get();
-    //         // console.log(RESPONSE.docs.map((element) => element.data()));
-
-    //          //POR 1 ITEM
-    //         // const RESPONSE = await COLLECTION.doc("TfLzkO482qMmXOsGIDhX").get();
-    //         // console.log(RESPONSE.data());
-
-    //         //FILTROS
-    //         // const RESPONSE = await COLLECTION.where("stock", "!=", 0).get();
-    //         // console.log(RESPONSE.docs.map((element) => element.data()));
-
-    //         //ALMACENAR EL ID
-    //         // RESPONSE.docs.map((element) => {
-    //         //     console.log({ id: element.id, ...element.data() });
-    //         // });
-
-    //
-    //     }
-    //     getData();
-    // }, []);
-
     return (
         <ShopContext.Provider
             value={{
@@ -143,6 +166,9 @@ export const ShopComponentContext = ({ children }) => {
 
                 getTotal,
                 itemsTotal,
+
+                addOne,
+                substractOne,
             }}
         >
             {children}

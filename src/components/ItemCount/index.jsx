@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { useState } from "react";
 export const ItemCount = ({ stock, initial, onAdd }) => {
     const [contador, setContador] = useState(initial);

@@ -1,11 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../../context/ShopContext";
 
 import "./styles.scss";
 
 export const CheckoutContainer = () => {
-    const { cart, clearCart, removeItem, getTotal } = useContext(ShopContext);
+    const { cart, clearCart, removeItem, getTotal, addOne, substractOne } = useContext(ShopContext);
 
     return (
         <>
@@ -21,19 +21,25 @@ export const CheckoutContainer = () => {
                                 <div className="text-center">Producto: {product.item.title}</div>
                             </div>
 
-                            <div className="d-flex flex-row justify-content-center justify-content-md-start align-items-center  col-8 col-md-2 py-2 ">
+                            <div className="d-flex flex-row justify-content-center justify-content-md-start align-ite   ms-center  col-8 col-md-2 py-2 ">
                                 <div>Precio: ${product.item.price}</div>
                             </div>
 
                             <div className="  col-8 col-md-2 d-flex flex-row justify-content-center">
-                                <div className="col-6 col-md-4 d-flex flex-row justify-content-around align-items-center py-2 ">
-                                    <button className="btn btn-success d-flex align-items-center h-10">
+                                <div className="d-flex flex-row w-75 justify-content-around align-items-center p-0 ">
+                                    <button
+                                        className="btn btn-success d-flex align-items-center h-10"
+                                        onClick={() => addOne(product.item, product.cantidad)}
+                                    >
                                         +
                                     </button>
-                                    <div className="d-flex align-items-center">
+                                    <div className="d-flex align-items-center text-center">
                                         {product.cantidad}
                                     </div>
-                                    <button className="btn btn-danger d-flex align-items-center h-10">
+                                    <button
+                                        className="btn btn-danger d-flex align-items-center h-10"
+                                        onClick={() => substractOne(product.item, product.cantidad)}
+                                    >
                                         -
                                     </button>
                                 </div>

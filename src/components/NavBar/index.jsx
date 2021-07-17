@@ -8,12 +8,11 @@ import { ShopContext } from "../../context/ShopContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 export const NavBar = () => {
-    const { cart, itemsTotal } = useContext(ShopContext);
-
-    // useEffect(() => {}, [cart]);
+    const { itemsTotal, fav } = useContext(ShopContext);
 
     return (
         <div className="navBar d-flex flex-column justify-content-center flex-md-row justify-content-md-between  align-items-center">
@@ -65,14 +64,18 @@ export const NavBar = () => {
                         <li className="d-inline-flex">
                             <Link to={"/Checkout"} className="text-decoration-none text-black-50">
                                 <FontAwesomeIcon icon={faShoppingCart} />
-                                {itemsTotal === 0 ? "" : itemsTotal}
+                                {itemsTotal}
                             </Link>
                         </li>
                     )}
 
                     <li>
                         <Link to={"/favorites"} className="text-decoration-none text-black-50">
-                            <FontAwesomeIcon icon={faHeart} size="1x" />
+                            {fav.length === 0 ? (
+                                <FontAwesomeIcon icon={faHeart} size="1x" />
+                            ) : (
+                                <FontAwesomeIcon icon={faSolidHeart} size="1x" />
+                            )}
                         </Link>
                     </li>
 

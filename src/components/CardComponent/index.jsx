@@ -1,6 +1,5 @@
 import "./styles.scss";
 import { ItemCount } from "../ItemCount";
-import { onAdd } from "../../utils/const";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ShopContext } from "../../context/ShopContext";
@@ -10,7 +9,7 @@ import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
 
 export const CardComponent = ({ product }) => {
     const { addToCart, addToFav } = useContext(ShopContext);
-    //Esto lo trae como objeto
+    // Esto lo trae como objeto
     // const state = useContext(ShopContext)
 
     const onAdd = (cantidad) => addToCart(product, cantidad);
@@ -25,7 +24,7 @@ export const CardComponent = ({ product }) => {
                     className="btn-fav-derecha"
                     onClick={() => {
                         addToFav(product);
-                        if (isFav != true) {
+                        if (isFav !== true) {
                             setIsFav(true);
                         } else {
                             setIsFav(false);

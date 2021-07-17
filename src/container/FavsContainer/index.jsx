@@ -24,6 +24,14 @@ export const FavsContainer = () => {
 
                         <div className="  col-8  col-lg-4 d-flex flex-row justify-content-center">
                             <div className="col-autos d-flex align-items-center">
+                                <Link to={`/item/${element.id}`} className="mx-1 ">
+                                    <>
+                                        <button className="btn btn-dark w-100" type="submit">
+                                            Ver Producto
+                                        </button>
+                                    </>
+                                </Link>
+
                                 <button
                                     className="btn btn-danger d-flex align-items-center h-10 m-1"
                                     onClick={() => {
@@ -33,14 +41,6 @@ export const FavsContainer = () => {
                                 >
                                     Eliminar
                                 </button>
-
-                                <Link to={`/item/${element.id}`}>
-                                    <>
-                                        <button className="btn btn-dark mx-1 w-100" type="submit">
-                                            Ver Producto
-                                        </button>
-                                    </>
-                                </Link>
                             </div>
                         </div>
                     </div>
