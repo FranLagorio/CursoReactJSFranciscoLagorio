@@ -107,11 +107,15 @@ export const ShopComponentContext = ({ children }) => {
             const COLLECTION = DB.collection("productos");
             const RESPONSE = await COLLECTION.get();
 
-            let aux = RESPONSE.docs.map((element) => {
-                return { id: element.id, ...element.data() };
-            });
-
-            setListProducts(aux);
+            if (RESPONSE.size === 0) {
+                console.log("No hay productos en la base de datos")
+            } else {
+                console.log(`Existen ${RESPONSE.size} productos en la base de datos`)
+                let aux = RESPONSE.docs.map((element) => {
+                    return { id: element.id, ...element.data() };
+                })
+                setListProducts(aux);
+            }
 
             // setListProducts(RESPONSE.docs.map((doc) => doc.data()));
             // console.log(RESPONSE.docs.map((element) => element.data()));
@@ -129,7 +133,9 @@ export const ShopComponentContext = ({ children }) => {
             //     console.log({ idd: element.id, ...element.data() });
             // });
         }
+
         getData();
+
         const localCart = localStorage.getItem("cart");
         if (!localCart) localStorage.setItem("cart", JSON.stringify([]));
         else setCart(JSON.parse(localCart));

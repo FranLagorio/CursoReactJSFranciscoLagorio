@@ -15,19 +15,19 @@ export const ItemListContainer = (props) => {
         setLoaded(false);
 
         if (category) {
-            // let aux = listProducts.filter((element) => element.category === category);
-
+            let aux = listProducts.filter((element) => element.category === category);
+            setFilterProducts(aux)
 
             //UNICAMENTE PARA DESAFIO - TRAIGO CATEGORY DESDE EL CONTEXT
-            async function getCategoryBD() {
-                const DB = getFirestore();
-                const COLLECTION = await DB.collection("productos");
-                const RESPONSE = await COLLECTION.where("category", "==", category).get();
-                console.log(RESPONSE)
-                setFilterProducts(RESPONSE.docs.map((element) => element.data()));
-                setLoaded(true);
-            }
-            getCategoryBD()
+            // async function getCategoryBD() {
+            //     const DB = getFirestore();
+            //     const COLLECTION = await DB.collection("productos");
+            //     const RESPONSE = await COLLECTION.where("category", "==", category).get();
+            //     console.log(RESPONSE);
+            //     setFilterProducts(RESPONSE.docs.map((element) => element.data()));
+            setLoaded(true);
+            // }
+            // getCategoryBD()
         } else {
             setLoaded(true);
             setFilterProducts(listProducts);

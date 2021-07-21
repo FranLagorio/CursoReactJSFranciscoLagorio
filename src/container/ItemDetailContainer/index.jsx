@@ -13,14 +13,14 @@ export const ItemDetailContainer = ({ greeting }) => {
     const [item, setItem] = useState({});
 
     useEffect(async () => {
-        // let aux = listProducts.find((element) => element.id === id);
+        let aux = listProducts.find((element) => element.id === id);
 
         //UNICAMENTE PARA DESAFIO - TRAIGO ITEM POR ID DE FIREBASE
-        const DB = getFirestore();
-        const COLLECTION = DB.collection("productos");
-        const RESPONSE = await COLLECTION.doc(id).get();
+        // const DB = getFirestore();
+        // const COLLECTION = DB.collection("productos");
+        // const RESPONSE = await COLLECTION.doc(id).get();
 
-        let aux = RESPONSE.data();
+        // let aux = RESPONSE.data();
         // console.log(RESPONSE.data());
         // setItem(RESPONSE);
 
